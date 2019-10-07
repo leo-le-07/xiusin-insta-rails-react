@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :v1, defaults: { format: 'json' } do
     get 'things', to: 'things#index'
+    resources :posts, only: %i[index create]
   end
 
   # Forward all requests to StaticController#index but requests must be non-Ajax
