@@ -9,6 +9,6 @@ class V1::ThingsController < ApplicationController
         name: 'thing-some-thing',
         guid: '5345345'
       }
-    ] }.to_json
+    ] }
   end
 end

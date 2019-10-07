@@ -1,11 +1,14 @@
-
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import HomePage from './pages/HomePage'
+import AppNavbar from './components/AppNavbar'
 
 const App = () => {
   return (
     <>
-      <h1>Hello Leo</h1>
+      <AppNavbar />
+      <HomePage />
     </>
   )
 }
