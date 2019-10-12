@@ -18,7 +18,11 @@ class V1::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, images: [])
+    params.permit(:content, images: [])
+    results = {}
+    results[:content] = params[:content]
+    results[:images] = params[:images].values
+    results
   end
 
   def success_json(post)

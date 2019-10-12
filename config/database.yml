@@ -24,6 +24,10 @@ default: &default
 development:
   <<: *default
   database: xiusin_insta_development
+  username: postgres
+  password:
+  host: localhost
+  socket: /var/run/postgresql/.s.PGSQL.5432
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
