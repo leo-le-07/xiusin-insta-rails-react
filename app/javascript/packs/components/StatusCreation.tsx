@@ -1,15 +1,26 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { NotificationContext } from '../components/notification/context'
+
 const StatusCreation = () => {
   const inputElement = useRef<HTMLInputElement>(null)
+  const { dispatch } = useContext(NotificationContext)
   const [content, setContent] = useState<string>('')
   const [files, setFiles] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>('')
+
+  const [enableSubmit, setEnableSubmit] = useState<boolean>(false)
+  useEffect(() => {
+    if (loading || (content === '' && files.length === 0)) {
+      setEnableSubmit(false)
+    } else {
+      setEnableSubmit(true)
+    }
+  })
 
   const handleClick = async () => {
     setLoading(true)
@@ -29,8 +40,16 @@ const StatusCreation = () => {
       if (inputElement !== null && inputElement.current !== null) {
         inputElement!.current!.value = ''
       }
+
+      dispatch({
+        type: 'SHOW_SUCCESS_NOTIFICATION',
+        payload: 'Create post successfully',
+      })
     } catch (err) {
-      setError(err.message)
+      dispatch({
+        type: 'SHOW_ERROR_NOTIFICATION',
+        payload: `Ceate post failed: ${err.message}`,
+      })
     } finally {
       setLoading(false)
     }
@@ -58,13 +77,12 @@ const StatusCreation = () => {
         />
         <Button
           variant="primary"
-          disabled={loading}
+          disabled={!enableSubmit}
           onClick={handleClick}
         >
           Post
         </Button>
       </div>
-      {error && <div>{error}</div>}
     </StyledContainer>
   )
 }

@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom'
 
 import HomePage from './pages/HomePage'
 import AppNavbar from './components/AppNavbar'
+import { NotificationProvider } from './components/notification/context'
+import Notification from './components/notification'
 
 const App = () => {
   return (
     <>
-      <AppNavbar />
-      <HomePage />
+      <NotificationProvider>
+        <AppNavbar />
+        <HomePage />
+        <Notification />
+      </NotificationProvider>
     </>
   )
 }

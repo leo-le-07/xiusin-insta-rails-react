@@ -21,7 +21,9 @@ class V1::PostsController < ApplicationController
     params.permit(:content, images: [])
     results = {}
     results[:content] = params[:content]
-    results[:images] = params[:images].values
+    if params.key?(:images)
+      results[:images] = params[:images].values
+    end
     results
   end
 
